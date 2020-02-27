@@ -1,0 +1,52 @@
+Instructions for how to run it on teach.cs machines:
+The following commands will produce the output required for each address trace file
+and store it in:
+simpleloop.txt for addr-simpleloop.ref
+blocked.txt for addr-blocked.ref
+matmul.txt for addr-matmul.ref
+
+Commands:
+python3 analysis.py addr-simpleloop.ref > simpleloop.txt
+python3 analysis.py addr-blocked.ref > blocked.txt
+python3 analysis.py addr-matmul.ref > matmul.txt
+
+Note: For use in other trace files simply replace trace file use and pipe
+the output into a text file with a name of your choosing.
+E.g. : python3 analysis.py new_trace_file.ref > new_trace_file.txt
+
+
+For addr-simpleloop.ref:
+
+Number of instruction pages = 120406
+Number of load pages = 50090
+Number of store pages = 10063
+Number of modify pages = 10006
+
+
+For addr-blocked.ref:
+
+Number of instruction pages = 52931708
+Number of load pages = 21578985
+Number of store pages = 2482955
+Number of modify pages = 1091709
+
+
+For addr-matmul.ref:
+
+Number of instruction pages = 47473890
+Number of load pages = 21491381
+Number of store pages = 1180742
+Number of modify pages = 1060125
+
+
+The instruction page that is accessed the most is 0x0108000.
+The part of the code from the program that might be stored in this page could be the instruction
+as to what exact operation to perform with the program counter as it is the variable that will
+be accessed the most. Alternatively, it could also be the instruction for translation of a page
+table to get to the correct memory address for an operation.
+
+The data page that is accessed the most is 0xffefff000
+The variable/data from the program that might be stored in this page could be program counter as 
+the program counter is accessed multiple times throughout a program, more so than any other
+variables. Alternatively, the variable being accessed could also be the main paging directory table
+as it is used for translation of the virtual address to the physical address.
